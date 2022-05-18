@@ -1,4 +1,7 @@
-﻿using ChatApp2Docs.Models;
+﻿using ChatApp2Docs.Data;
+using ChatApp2Docs.Models;
+using ChatApp2Docs.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -12,14 +15,17 @@ namespace ChatApp2Docs.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        private readonly IChattingService _chattingService;
+        public HomeController(ILogger<HomeController> logger, IChattingService chattingService)
         {
             _logger = logger;
+            _chattingService = chattingService;
         }
 
+        [Authorize]
         public IActionResult Index()
         {
+            ViewBag.UserList = _chattingService.getUsersList();
             return View();
         }
 

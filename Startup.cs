@@ -1,5 +1,6 @@
 using ChatApp2Docs.Chat;
 using ChatApp2Docs.Data;
+using ChatApp2Docs.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -36,6 +37,7 @@ namespace ChatApp2Docs
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddSignalR();
+            services.AddTransient<IChattingService, ChattingService>();
             services.AddControllersWithViews();
         }
 

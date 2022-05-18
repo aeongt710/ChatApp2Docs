@@ -1,15 +1,14 @@
 ﻿
-var connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
+var connection = new signalR.HubConnectionBuilder()
+    .withUrl("/chatHub")
+    .configureLogging(signalR.LogLevel.Information)
+    .build();
 
-//Disable send button until connection is established
 document.getElementById("sendButton").disabled = true;
 
 connection.on("ReceiveMessage", function (user, message) {
     var li = document.createElement("li");
     document.getElementById("messagesList").appendChild(li);
-    // We can assign user-supplied strings to an element's textContent because it
-    // is not interpreted as markup. If you're assigning in any other way, you 
-    // should be aware of possible script injection concerns.
     li.textContent = `${user} says ${message}`;
 });
 
@@ -19,11 +18,51 @@ connection.start().then(function () {
     return console.error(err.toString());
 });
 
+
+//var user = document.getElementById("userInput").value;
+//var message = document.getElementById("messageInput").value;
+//connection.invoke("SendMessage", user, message).catch(function (err) {
+//    return console.error(err.toString());
+//});
+
+
 document.getElementById("sendButton").addEventListener("click", function (event) {
-    var user = document.getElementById("userInput").value;
+    //var user = document.getElementById("userId").value;
+    console.log($('#userId').val());
     var message = document.getElementById("messageInput").value;
-    connection.invoke("SendMessage", user, message).catch(function (err) {
+    connection.invoke("SendMessage", message).catch(function (err) {
         return console.error(err.toString());
     });
+    //var connection = document.getElementById("connectionInput2").value;
+    //connection.invoke("SendSpecificMessage", user, connection, message).catch(function (err) {
+    //    return console.error(err.toString());
+    //});
     event.preventDefault();
 });
+document.getElementById("sendButton2").addEventListener("click", function (event) {
+
+    //var user = document.getElementById("userInput2").value;
+    var message = document.getElementById("messageInput2").value;
+    //var con = document.getElementById("connectionInput2").value;
+    connection.invoke("SendSpecificMessage", $('#userId').val(),  message).catch(function (err) {
+        return console.error(err.toString());
+    });
+
+
+    //var user = document.getElementById("userInput2").value;
+    //var message = document.getElementById("messageInput2").value;
+    //var connection = document.getElementById("connectionInput2").value;
+    //connection.invoke("SendSpecificMessage",  user,  connection,  message).catch(function (err) {
+    //    return console.error(err.toString());
+    //});
+    event.preventDefault();
+});
+//document.getElementById("sendButton2").addEventListener("click", function (event) {
+//    var user = document.getElementById("userInput2").value;
+//    var message = document.getElementById("messageInput2").value;
+//    var connection = document.getElementById("connectionInput2").value;
+//    connection.invoke("SendSpecificMessage", user, message).catch(function (err) {
+//        return console.error(err.toString());
+//    });
+//    event.preventDefault();
+//});
