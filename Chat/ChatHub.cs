@@ -8,13 +8,13 @@ namespace ChatApp2Docs.Chat
         public async Task SendMessage(string message)
         {
             string a = Context.User.Identity.Name;
-            await Clients.All.SendAsync("ReceiveMessage", a, message);
+            await Clients.All.SendAsync("ReceivePublicMessage", a , message);
         }
         public async Task SendSpecificMessage(string toUser,  string message)
         {
             string name = Context.User.Identity.Name;
-            await Clients.Group(name).SendAsync("ReceiveMessage",name ,message);
-            await Clients.Group(toUser).SendAsync("ReceiveMessage", name, message);
+            await Clients.Group(name).SendAsync("ReceivePrivateMessage",name ,message);
+            await Clients.Group(toUser).SendAsync("ReceivePrivateMessage", name, message);
         }
         public override async Task<Task> OnConnectedAsync()
         {

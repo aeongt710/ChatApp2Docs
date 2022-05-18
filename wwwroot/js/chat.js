@@ -6,10 +6,16 @@ var connection = new signalR.HubConnectionBuilder()
 
 document.getElementById("sendButton").disabled = true;
 
-connection.on("ReceiveMessage", function (user, message) {
+connection.on("ReceivePublicMessage", function (user, message) {
     var li = document.createElement("li");
     document.getElementById("messagesList").appendChild(li);
-    li.textContent = `${user} says ${message}`;
+    li.textContent = `(Public) ${user} says ${message}`;
+});
+
+connection.on("ReceivePrivateMessage", function (user, message) {
+    var li = document.createElement("li");
+    document.getElementById("messagesList").appendChild(li);
+    li.textContent = `(Private) ${user} says ${message}`;
 });
 
 connection.start().then(function () {
@@ -19,50 +25,19 @@ connection.start().then(function () {
 });
 
 
-//var user = document.getElementById("userInput").value;
-//var message = document.getElementById("messageInput").value;
-//connection.invoke("SendMessage", user, message).catch(function (err) {
-//    return console.error(err.toString());
-//});
-
 
 document.getElementById("sendButton").addEventListener("click", function (event) {
-    //var user = document.getElementById("userId").value;
-    console.log($('#userId').val());
     var message = document.getElementById("messageInput").value;
     connection.invoke("SendMessage", message).catch(function (err) {
         return console.error(err.toString());
     });
-    //var connection = document.getElementById("connectionInput2").value;
-    //connection.invoke("SendSpecificMessage", user, connection, message).catch(function (err) {
-    //    return console.error(err.toString());
-    //});
     event.preventDefault();
 });
-document.getElementById("sendButton2").addEventListener("click", function (event) {
 
-    //var user = document.getElementById("userInput2").value;
+document.getElementById("sendButton2").addEventListener("click", function (event) {
     var message = document.getElementById("messageInput2").value;
-    //var con = document.getElementById("connectionInput2").value;
     connection.invoke("SendSpecificMessage", $('#userId').val(),  message).catch(function (err) {
         return console.error(err.toString());
     });
-
-
-    //var user = document.getElementById("userInput2").value;
-    //var message = document.getElementById("messageInput2").value;
-    //var connection = document.getElementById("connectionInput2").value;
-    //connection.invoke("SendSpecificMessage",  user,  connection,  message).catch(function (err) {
-    //    return console.error(err.toString());
-    //});
     event.preventDefault();
 });
-//document.getElementById("sendButton2").addEventListener("click", function (event) {
-//    var user = document.getElementById("userInput2").value;
-//    var message = document.getElementById("messageInput2").value;
-//    var connection = document.getElementById("connectionInput2").value;
-//    connection.invoke("SendSpecificMessage", user, message).catch(function (err) {
-//        return console.error(err.toString());
-//    });
-//    event.preventDefault();
-//});
