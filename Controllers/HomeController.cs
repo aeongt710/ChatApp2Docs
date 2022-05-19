@@ -29,6 +29,10 @@ namespace ChatApp2Docs.Controllers
             return View();
         }
 
+        public IActionResult GlobalChat()
+        {
+            return View();
+        }
         public IActionResult Privacy()
         {
             return View();

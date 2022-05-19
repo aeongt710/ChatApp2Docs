@@ -14,5 +14,6 @@ namespace ChatApp2Docs.Data
         {
         }
         public DbSet<Message> Messages { get; set; }
+        public DbSet<GlobalMessage> GlobalMessages { get; set; }
     }
 }
