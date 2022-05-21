@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace ChatApp2Docs.Controllers.Api
@@ -49,6 +50,23 @@ namespace ChatApp2Docs.Controllers.Api
             {
                 message.SenderName = HttpContext.User.Identity.Name;
                 await _chattingService.sendPrivateMessage(message);
+            }
+            catch (Exception e)
+            {
+                commonResponse.status = 5;
+                commonResponse.message = e.Message;
+            }
+            return Ok(commonResponse);
+        }
+        [HttpGet]
+        [Route("getGlobalMessages")]
+        public  IActionResult getGlobalMessages()
+        {
+            CommonResponse<List<GlobalChatMessage>> commonResponse = new CommonResponse<List<GlobalChatMessage>>();
+            try
+            {
+                string sender = HttpContext.User.Identity.Name;
+                commonResponse.dataenum = _chattingService.GetGlobalMessages(sender).Result;
             }
             catch (Exception e)
             {

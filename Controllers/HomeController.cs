@@ -28,7 +28,7 @@ namespace ChatApp2Docs.Controllers
             ViewBag.UserList = _chattingService.getUsersList();
             return View();
         }
-
+        [Authorize]
         public IActionResult GlobalChat()
         {
             return View();

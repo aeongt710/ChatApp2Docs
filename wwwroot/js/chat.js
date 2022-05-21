@@ -67,24 +67,30 @@ function sendPrivateMessage() {
 }
 
 function sendGloablMessage() {
-
-    var requestData = {
-        Text: $('#messageInput').val(),
-    };
-
-    $.ajax({
-        url: routeURL + '/api/hubcontext/sendGlobalMessage',
-        type: 'POST',
-        data: JSON.stringify(requestData),
-
-        contentType: 'application/json',
-        success: function (response) {
-            console.log("respnse is ",response);
-        },
-        error: function (xhr) {
-            console.log("Error Occured",xhr);
-        }
+    var message = document.getElementById("messageInput").value;
+    connection.invoke("SendMessage", message).catch(function (err) {
+        return console.error(err.toString());
     });
+    event.preventDefault();
+
+
+    //var requestData = {
+    //    Text: $('#messageInput').val(),
+    //};
+
+    //$.ajax({
+    //    url: routeURL + '/api/hubcontext/sendGlobalMessage',
+    //    type: 'POST',
+    //    data: JSON.stringify(requestData),
+
+    //    contentType: 'application/json',
+    //    success: function (response) {
+    //        console.log("respnse is ",response);
+    //    },
+    //    error: function (xhr) {
+    //        console.log("Error Occured",xhr);
+    //    }
+    //});
 }
 //const text = document.querySelectorAll(".text");
 //let delay = 0;

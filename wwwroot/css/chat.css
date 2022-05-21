@@ -45,7 +45,8 @@ img {
     width: 80%;
     max-width: 400px;
     min-width: 100%;
-    max-height: 600px;
+    min-height: 500px;
+    max-height: 500px;
     border-radius: 7px;
     background: white;
     box-shadow: 0 0 10px hsla(0, 0%, 0%, 0.2);
@@ -105,6 +106,7 @@ img {
 }
 
     .profile-pic img {
+        background-color:white;
         width: 100%;
         height: 100%;
         object-fit: cover;
@@ -122,7 +124,7 @@ img {
 .timestamp {
     display: block;
     font-size: 0.7rem;
-    color: hsl(0, 0%, 50%);
+    color: #ff0018;
     margin-top: 0.2rem;
 }
 
@@ -137,10 +139,9 @@ img {
 }
 
 .send-message {
-
     width: 100%;
-    padding-left:10px;
-    padding-right:10px;
+    padding-left: 10px;
+    padding-right: 10px;
     /*padding: 1rem;*/
     display: flex;
     align-items: center;
@@ -148,7 +149,7 @@ img {
 }
 
 .message-text {
-    height:50%;
+    height: 50%;
     width: 80%;
     background: white;
     padding: 1rem 1.2rem;
@@ -194,7 +195,7 @@ img {
     transition: 300ms ease;
 }
 
-.chat-btn:hover {
-    background: black;
-    cursor: pointer;
-}
+    .chat-btn:hover {
+        background: black;
+        cursor: pointer;
+    }

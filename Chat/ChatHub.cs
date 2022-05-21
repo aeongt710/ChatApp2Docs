@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.SignalR;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace ChatApp2Docs.Chat
@@ -8,7 +9,10 @@ namespace ChatApp2Docs.Chat
         public async Task SendMessage(string message)
         {
             string a = Context.UserIdentifier;
-            await Clients.All.SendAsync("ReceivePublicMessage", "UserIdentifier");
+            string b = Clients.ToString();
+            //await Clients.Users(new List<string>() { a }).SendAsync("ReceivePublicMessage", message);
+            //await Clients.Users().SendAsync(Context.ConnectionId, name);
+            //await Clients.All.SendAsync("ReceivePublicMessage", "all");
         }
         public async Task SendSpecificMessage(string toUser,  string message)
         {
