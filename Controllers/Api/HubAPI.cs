@@ -31,11 +31,11 @@ namespace ChatApp2Docs.Controllers.Api
             CommonResponse<int> commonResponse = new CommonResponse<int>();
             try
             {
-                await _chattingService.sendPublicMessage(message.Text, HttpContext.User.Identity.Name);
+                commonResponse.status= _chattingService.sendPublicMessage(message.Text, HttpContext.User.Identity.Name).Result;
             }
             catch(Exception e)
             {
-                commonResponse.status = 5;
+                commonResponse.status = 1;
                 commonResponse.message=e.Message;
             }
             return Ok(commonResponse);

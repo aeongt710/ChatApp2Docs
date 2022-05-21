@@ -6,7 +6,7 @@ var connection = new signalR.HubConnectionBuilder()
     .configureLogging(signalR.LogLevel.Information)
     .build();
 
-document.getElementById("sendButton").disabled = true;
+//document.getElementById("sendButton").disabled = true;
 
 connection.on("ReceivePublicMessage", function (user, message) {
     var li = document.createElement("li");
@@ -86,3 +86,10 @@ function sendGloablMessage() {
         }
     });
 }
+//const text = document.querySelectorAll(".text");
+//let delay = 0;
+//text.forEach(el => {
+//    el.style.animation = "fade-in 1s ease forwards";
+//    el.style.animationDelay = delay + "s";
+//    delay += 0.33;
+//});

@@ -18,13 +18,11 @@ namespace ChatApp2Docs.Services
         private ApplicationDbContext _db;
         private readonly IHubContext<ChatHub> _hubContext;
         private readonly UserManager<IdentityUser> _userManager;
-        private readonly IHttpContextAccessor _httpContextAccessor;
-        public ChattingService(ApplicationDbContext db, IHubContext<ChatHub> hubContext, UserManager<IdentityUser> userManager, IHttpContextAccessor httpContextAccessor)
+        public ChattingService(ApplicationDbContext db, IHubContext<ChatHub> hubContext, UserManager<IdentityUser> userManager)
         {
             _db = db;
             _hubContext = hubContext;
             _userManager = userManager;
-            _httpContextAccessor = httpContextAccessor;
         }
 
         public List<UserVM> getUsersList()
@@ -40,14 +38,25 @@ namespace ChatApp2Docs.Services
         {
             
             IdentityUser user = await _userManager.FindByNameAsync(name);
-            _db.Add(new GlobalMessage
+            GlobalMessage globalMessage = new GlobalMessage()
             {
                 SenderId = user.Id,
                 Text = message,
                 Time = DateTime.Now
-            });
+            };
+            _db.Add(globalMessage);
             await _db.SaveChangesAsync();
-            await _hubContext.Clients.All.SendAsync("ReceivePublicMessage", name, message);
+            GlobalChatMessage globalChatMessage = new GlobalChatMessage()
+            {
+                Text =globalMessage.Text,
+                isSender = false,
+                Time = globalMessage.Time,
+                Sender = name
+            };
+            //await _hubContext.Clients.U().SendAsync("ReceivePublicMessage", globalChatMessage);
+            //globalChatMessage.isSender = true;
+            //await _hubContext.Clients.Group(name).SendAsync("ReceivePublicMessage", globalChatMessage);
+            //await _hubContext.Con
             return 0;
         }
         public async Task<int> sendPrivateMessage(apiPOST message)

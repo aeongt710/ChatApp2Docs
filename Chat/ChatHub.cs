@@ -7,8 +7,8 @@ namespace ChatApp2Docs.Chat
     {
         public async Task SendMessage(string message)
         {
-            string a = Context.User.Identity.Name;
-            await Clients.All.SendAsync("ReceivePublicMessage", a , message);
+            string a = Context.UserIdentifier;
+            await Clients.All.SendAsync("ReceivePublicMessage", "UserIdentifier");
         }
         public async Task SendSpecificMessage(string toUser,  string message)
         {
@@ -18,6 +18,7 @@ namespace ChatApp2Docs.Chat
         }
         public override async Task<Task> OnConnectedAsync()
         {
+
             string name = Context.User.Identity.Name;
             await Groups.AddToGroupAsync(Context.ConnectionId, name);
             return base.OnConnectedAsync();

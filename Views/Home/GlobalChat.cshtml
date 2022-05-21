@@ -1,50 +1,84 @@
-﻿<h3>Public Chat</h3>
-<div class="container">
-    <div class="row form-group">
-        <div class="col-2">Message</div>
-        <div class="col-4"><input type="text" id="messageInput" class="form-control" /></div>
-    </div>
-    <div class="row">
-        <div class="col-6">
-            <input type="button" id="sendButton" onclick="sendGloablMessage();" value="Send Message" class=" form-control btn-outline-primary" />
+﻿
+
+<link rel="stylesheet" href="~/css/chat.css" />
+
+
+@*<script src="~/lib/signalR/dist/browser/signalr.js"></script>*@
+<script src="~/js/signalr.js"></script>
+<script src="~/js/globalChat.js"></script>
+@*<script src="~/js/chat.js"></script>*@
+<div class="container ">
+    <div class="">
+        <div class="chat ">
+
+            <div class="chat-texts" id="allMessages">
+
+
+                <div class="single-text">
+                    <div class="profile-pic"> <img src="~/img/vectors/person.png" alt=""> </div>
+                    <div class="text-content">
+                        <h5>Joannie</h5>
+                        Lorem ipsum dolor sit amet.<span class="timestamp">12:00hrs</span>
+
+                    </div>
+                </div>
+
+
+                <div class="single-text sent">
+                    <div class="profile-pic"><img src="~/img/vectors/person.png" alt=""></div>
+                    <div class="text-content"><h5>Laurie</h5>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptates, saepe?<span class="timestamp">12:00hrs</span></div>
+                </div>
+
+
+                <div class="single-text">
+                    <div class="profile-pic"> <img src="~/img/vectors/person.png" alt=""> </div>
+                    <div class="text-content"><h5>Joannie</h5>Lorem ipsum dolor sit amet.<span class="timestamp">12:00hrs</span></div>
+                </div>
+
+
+                <div class="single-text">
+                    <div class="profile-pic"> <img src="" alt=""> </div>
+                    <div class="text-content"><h5>Joannie</h5> Lorem ipsum dolor sit amet.<span class="timestamp">12:00hrs</span></div>
+                </div>
+
+
+                <div class="single-text sent">
+                    <div class="profile-pic"><img src="~/img/vectors/person.png" alt=""></div>
+                    <div class="text-content"><h5>Laurie</h5>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptates, saepe?<span class="timestamp">12:00hrs</span></div>
+                </div>
+
+
+                <div class="single-text">
+                    <div class="profile-pic"> <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80" alt=""> </div>
+                    <div class="text-content"><h5>Joannie</h5>Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet.<span class="timestamp">12:00hrs</span></div>
+                </div>
+                <div class="single-text">
+                    <div class="profile-pic"> <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80" alt=""> </div>
+                    <div class="text-content"><h5>Joannie</h5>Lorem ipsum dolor sit amet.<span class="timestamp">12:00hrs</span></div>
+                </div>
+
+
+                <div class="single-text sent">
+                    <div class="profile-pic"><img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" alt=""></div>
+                    <div class="text-content"><h5>Laurie</h5>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptates, saepe?<span class="timestamp">12:00hrs</span></div>
+                </div>
+
+
+            </div>
+
+
+            <div class="send-message">
+                <div class="message-text">
+                    @*<div class="smiley"><i class="lni lni-smile"></i></div>*@
+                    <input type="text" id="messageInput" placeholder="Send Message">
+                    @*<div class="attachment"><i class="lni lni-upload"></i></div>*@
+                </div>
+                <button class="chat-btn" id="sendBTN" onclick="sendGloablMessage();"><i class="lni lni-arrow-right-circle"></i></button>
+            </div>
+
+
+
+
         </div>
     </div>
 </div>
-
-<br />
-    <h3>Private Message</h3>
-<br />
-<div class="container">
-
-    <div class="row form-group">
-        <div class="col-2">To User</div>
-        <div class="col-4">@Html.DropDownList("userId",new SelectList(ViewBag.UserList,"Name","Name"),new {@class="form-control"})</div>
-    </div>
-    <div class="row form-group">
-        <div class="col-2">Message</div>
-        <div class="col-4"><input type="text" id="messageInput2" class="form-control" /></div>
-    </div>
-    <div class="row">&nbsp;</div>
-    <div class="row">
-        <div class="col-6">
-            <input type="button" id="sendButton2" value="Send Message With connection" class=" form-control btn-outline-primary" />
-        </div>
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-12">
-        <hr />
-    </div>
-</div>
-<div class="row">
-    <div class="col-6">
-        <ul id="messagesList"></ul>
-    </div>
-</div>
-
-
-
-
-@*<script src="~/js/signalr/dist/browser/signalr.js"></script>
-    <script src="~/js/chat.js"></script>*@
