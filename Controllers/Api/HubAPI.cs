@@ -27,17 +27,17 @@ namespace ChatApp2Docs.Controllers.Api
 
         [HttpPost]
         [Route("sendGlobalMessage")]
-        public async Task<ActionResult> SendGlobalMessageAsync(apiPOST message)
+        public ActionResult SendGlobalMessage(apiPOST message)
         {
             CommonResponse<int> commonResponse = new CommonResponse<int>();
             try
             {
-                commonResponse.status= _chattingService.sendPublicMessage(message.Text, HttpContext.User.Identity.Name).Result;
+                commonResponse.status = _chattingService.sendPublicMessage(message.Text, HttpContext.User.Identity.Name).Result;
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 commonResponse.status = 1;
-                commonResponse.message=e.Message;
+                commonResponse.message = e.Message;
             }
             return Ok(commonResponse);
         }
@@ -75,5 +75,29 @@ namespace ChatApp2Docs.Controllers.Api
             }
             return Ok(commonResponse);
         }
+        [HttpGet]
+        [Route("getPrivateMessges/{sender}")]
+        public IActionResult getPrivateMessages(string sender)
+        {
+            CommonResponse<List<PrivateChatMessage>> commonResponse = new CommonResponse<List<PrivateChatMessage>>();
+            try
+            {
+                apiPOST names = new apiPOST()
+                {
+                    SenderName = HttpContext.User.Identity.Name,
+                    ReceiverName = sender
+                };
+                //names.ReceiverName
+                //string sende = HttpContext.User.Identity.Name;
+                commonResponse.dataenum = _chattingService.GetPrivateMessages(names).Result;
+            }
+            catch (Exception e)
+            {
+                commonResponse.status = 5;
+                commonResponse.message = e.Message;
+            }
+            return Ok(commonResponse);
+        }
+
     }
 }

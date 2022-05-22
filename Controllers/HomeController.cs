@@ -1,8 +1,10 @@
 ﻿using ChatApp2Docs.Data;
 using ChatApp2Docs.Models;
+using ChatApp2Docs.Models.VMs;
 using ChatApp2Docs.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -25,10 +27,28 @@ namespace ChatApp2Docs.Controllers
         [Authorize]
         public IActionResult Index()
         {
-            ViewBag.UserList = _chattingService.getUsersList();
-            return View();
+            
+            IList<UserVM> userList = _chattingService.getUsersList(HttpContext.User.Identity.Name);
+            return View(userList);
         }
+
+        [Route("PrivateChat/{name}")]
         [Authorize]
+        [ValidateAntiForgeryToken]
+        public IActionResult PrivateChat(string name)
+        {
+            if(_chattingService.UserExists(name))
+            {
+                return View(nameof(PrivateChat), name);
+            }    
+                //return View(name); gives error
+            return NotFound();
+        }
+
+
+
+        [Authorize]
+        [ValidateAntiForgeryToken]
         public IActionResult GlobalChat()
         {
             return View();

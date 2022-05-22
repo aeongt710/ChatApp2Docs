@@ -26,14 +26,19 @@ namespace ChatApp2Docs.Services
             _userManager = userManager;
         }
 
-        public List<UserVM> getUsersList()
+        public List<UserVM> getUsersList(string userName)
         {
-            return (from user in _db.Users
-                    select new UserVM
-                    {
-                        Id = user.Id,
-                        Name = user.Email
-                    }).ToList();
+            //return (from user in _db.Users
+            //        select new UserVM
+            //        {
+            //            Id = user.Id,
+            //            Name = user.Email
+            //        }).ToList();
+            return _db.Users.Where(a=>a.Email!=userName).Select(i=> new UserVM
+            {
+                Id=i.Id,
+                Name=i.Email
+            }).ToList();
         }
         public async Task<int> sendPublicMessage(string message, string name)
         {
@@ -67,16 +72,26 @@ namespace ChatApp2Docs.Services
 
             IdentityUser receiver = await _userManager.FindByNameAsync(message.ReceiverName);
             IdentityUser sender = await _userManager.FindByNameAsync(message.SenderName);
-            _db.Add(new Message
-            {
-                SenderId = sender.Id,
-                ReceiverId = receiver.Id,
-                Text = message.Text,
-                Time = DateTime.Now
-            });
+            Message dbMessage = new Message
+                {
+                    SenderId = sender.Id,
+                    ReceiverId = receiver.Id,
+                    Text = message.Text,
+                    Time = DateTime.Now
+                };
+            _db.Add(dbMessage);
             await _db.SaveChangesAsync();
-            await _hubContext.Clients.Group(message.ReceiverName).SendAsync("ReceivePrivateMessage", message.SenderName, message.Text);
-            await _hubContext.Clients.Group(message.SenderName).SendAsync("ReceivePrivateMessage", message.SenderName, message.Text);
+            PrivateChatMessage privateChatMessage = new PrivateChatMessage()
+            {
+                Text = dbMessage.Text,
+                Receiver = receiver.Email,
+                Sender = sender.Email,
+                Time = dbMessage.Time.ToString("dddd, dd MMMM yyyy HH:mm tt"),
+                isSender = false
+            };
+            await _hubContext.Clients.User(receiver.Id).SendAsync("ReceivePrivateMessage", privateChatMessage);
+            privateChatMessage.isSender = true;
+            await _hubContext.Clients.User(sender.Id).SendAsync("ReceivePrivateMessage", privateChatMessage);
             return 0;
         }
 
@@ -92,6 +107,33 @@ namespace ChatApp2Docs.Services
                     isSender = (a.SenderId.Equals(sender.Id))
                 }
                 ).ToList();
+            return messages;
+        }
+
+        public bool UserExists(string name)
+        {
+            return _userManager.FindByEmailAsync(name).Result !=null ? true : false;
+        }
+
+        public async Task<List<PrivateChatMessage>> GetPrivateMessages(apiPOST users)
+        {
+            //IdentityUser receiver = await _userManager.FindByNameAsync(users.ReceiverName);
+            //IdentityUser sender = await _userManager.FindByNameAsync(users.SenderName);
+            var messages = _db.Messages
+                .Include(a => a.Sender)
+                .Include(b => b.Receiver)
+                .OrderBy(or => or.Time)
+                .Where(d=>(d.Sender.Email.Equals(users.SenderName) && d.Receiver.Email.Equals(users.ReceiverName))||
+                d.Sender.Email.Equals(users.ReceiverName) && d.Receiver.Email.Equals(users.SenderName))
+                .Select(
+                c => new PrivateChatMessage
+                {
+                    Time = c.Time.ToString("dddd, dd MMMM yyyy HH:mm tt"),
+                    Receiver = c.Receiver.Email,
+                    Sender = c.Sender.Email,
+                    isSender = (c.Sender.Email.Equals(users.SenderName)),
+                    Text = c.Text
+                }).ToList();
             return messages;
         }
     }
