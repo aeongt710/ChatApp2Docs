@@ -2,7 +2,59 @@
 @{
     ViewData["Title"] = "Index";
 }
-@foreach(var item in Model)
-{
+<link rel="stylesheet" href="~/css/contacts.css" />
+@*@foreach(var item in Model)
+    {
     <a asp-controller="Home" asp-route-name="@item.Name" asp-action="PrivateChat" >@item.Name</a><br/>
-}
+    }*@
+<div class="container ">
+    <div class="">
+        <div class="chat ">
+            <div class="headerDiv align-center">
+                asdsd
+            </div>
+            <div class="chat-texts" id="allMessages">
+
+                <div class="mt-3">
+
+                    @foreach (var item in Model)
+                    {
+                        <div class="ml-2 mt-3 row">
+                            <div class="col-1 p-0"><a><span class="w-48 avatar gd-warning">S</span></a></div>
+                            <div class="col-10 p-0">
+                                <a asp-controller="Home" class="username" asp-route-name="@item.Name" asp-action="PrivateChat" >@item.Name</a><br/>
+                                <div class="userlasttext">Last Message</div>
+                            </div>
+                            <div class="timee ">time</div>
+                        </div>
+                    }
+                </div>
+                <style>
+                    .userlasttext {
+                        color: #99a0ac !important;
+                    }
+
+                    .username {
+                        color: #5e676f;
+                    }
+
+                    .timee {
+                        color: #99a0ac;
+                        display: flex;
+                        align-items: center;
+                    }
+                </style>
+
+
+
+
+            </div>
+
+
+
+
+
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,365 @@
+﻿
+.text-muted {
+    color: #99a0ac !important
+}
+
+.block,
+.card {
+    background: #fff;
+    border-width: 0;
+    border-radius: .25rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, .05);
+    margin-bottom: 1.5rem
+}
+
+.avatar {
+    position: relative;
+    line-height: 1;
+    border-radius: 500px;
+    white-space: nowrap;
+    font-weight: 700;
+    border-radius: 100%;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -ms-flex-negative: 0;
+    flex-shrink: 0;
+    border-radius: 500px;
+    box-shadow: 0 5px 10px 0 rgba(50, 50, 50, .15)
+}
+
+    .avatar img {
+        border-radius: inherit;
+        width: 100%
+    }
+
+.gd-primary {
+    color: #fff;
+    border: none;
+    background: #448bff linear-gradient(45deg, #448bff, #44e9ff)
+}
+
+
+.gd-success {
+    color: #fff;
+    border: none;
+    background: #31c971 linear-gradient(45deg, #31c971, #3dc931)
+}
+
+
+
+.gd-info {
+    color: #fff;
+    border: none;
+    background: #14bae4 linear-gradient(45deg, #14bae4, #14e4a6)
+}
+
+
+.gd-warning {
+    color: #fff;
+    border: none;
+    background: #f4c414 linear-gradient(45deg, #f4c414, #f45414)
+}
+
+
+@media (min-width:992px) {
+    .page-container {
+        max-width: 1140px;
+        margin: 0 auto
+    }
+
+    .page-sidenav {
+        display: block !important
+    }
+}
+
+
+.list {
+    padding-left: 0;
+    padding-right: 0
+}
+
+.list-item {
+    position: relative;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word
+}
+
+
+
+
+
+.list-row .list-item {
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -ms-flex-align: center;
+    align-items: center;
+    padding: .75rem .625rem
+}
+
+    .list-row .list-item > * {
+        padding-left: .625rem;
+        padding-right: .625rem
+    }
+
+
+
+.no-wrap {
+    white-space: nowrap
+}
+
+
+
+.text-color {
+    color: #5e676f
+}
+
+
+
+.text-gd {
+    -webkit-background-clip: text;
+    -moz-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    -moz-text-fill-color: transparent;
+    text-fill-color: transparent
+}
+
+
+
+.text-sm {
+    font-size: .825rem
+}
+
+.h-1x {
+    height: 1.25rem;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical
+}
+
+
+.w-48 {
+    width: 48px !important;
+    height: 48px !important
+}
+
+
+a:link {
+    text-decoration: none;
+}
+
+.alignCenter {
+    text-align: -webkit-center;
+}
+
+.headerDiv {
+
+    background-color: #04b4a9;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+
+::selection {
+    background: hsl(0, 0%, 0%);
+    color: #04b4a9;
+}
+
+::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+}
+
+::-webkit-scrollbar-track {
+    background: hsla(0, 0%, 100%);
+}
+
+::-webkit-scrollbar-thumb {
+    background: hsl(0, 0%, 50%);
+    border-radius: 10px;
+}
+
+    ::-webkit-scrollbar-thumb:hover {
+        background: #555;
+    }
+
+img {
+    display: block;
+    max-width: 100%;
+}
+
+.chat {
+    width: 80%;
+    max-width: 400px;
+    min-width: 100%;
+    min-height: 500px;
+    max-height: 500px;
+    border-radius: 7px;
+    background: white;
+    box-shadow: 0 0 10px hsla(0, 0%, 0%, 0.2);
+    overflow: hidden;
+    display: grid;
+    grid-template-rows: 15% 85%;
+}
+
+.chat-texts {
+    background: white;
+    padding: 2px;
+    overflow: auto;
+}
+
+.single-text {
+    display: flex;
+    padding: 0.7rem;
+    align-items: start;
+    /*opacity:0;*/
+}
+
+@keyframes fade-in {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.single-text.sent {
+    flex-direction: row-reverse;
+}
+
+    .single-text.sent .profile-pic {
+        margin-right: 0;
+        margin-left: 0.7rem;
+    }
+
+    .single-text.sent .text-content {
+        border-radius: 20px 0px 20px 20px;
+    }
+
+    .single-text.sent .text-content {
+        background: #04b4a9;
+        color: white;
+    }
+
+.profile-pic {
+    min-width: 50px;
+    height: 50px;
+    background: gray;
+    border-radius: 50%;
+    margin-right: 0.7rem;
+    overflow: hidden;
+}
+
+    .profile-pic img {
+        background-color: white;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+.text-content {
+    background: hsl(220, 20%, 94%);
+    padding: 1.5rem;
+    border-radius: 0px 20px 20px 20px;
+    font-size: 0.8rem;
+    line-height: 130%;
+    letter-spacing: 0.5px;
+}
+
+.timestamp {
+    display: block;
+    font-size: 0.7rem;
+    color: #ff0018;
+    margin-top: 0.2rem;
+}
+
+.text.sent .timestamp {
+    color: white;
+}
+
+.text-content h5 {
+    letter-spacing: 0;
+    font-size: 0.9rem;
+    margin-bottom: 0.2rem;
+}
+
+.send-message {
+    width: 100%;
+    padding-left: 10px;
+    padding-right: 10px;
+    /*padding: 1rem;*/
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.message-text {
+    height: 50%;
+    width: 80%;
+    background: white;
+    padding: 1rem 1.2rem;
+    border-radius: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-basis: 80%;
+    background: hsl(220, 20%, 94%);
+}
+
+
+.smiley,
+.attachment {
+    width: 20px;
+    height: 20px;
+    display: grid;
+    place-items: center;
+}
+
+.message-text input {
+    width: 100%;
+    padding: 0.5rem;
+    border: none;
+    background: transparent;
+}
+
+    .message-text input:focus {
+        outline: none;
+    }
+
+.chat-btn {
+    border: none;
+    background: transparent;
+    width: 60px;
+    height: 60px;
+    font-size: 2rem;
+    border-radius: 50%;
+    background: #04b4a9;
+    color: white;
+    display: grid;
+    place-items: center;
+    transition: 300ms ease;
+}
+
+    .chat-btn:hover {
+        background: black;
+        cursor: pointer;
+    }

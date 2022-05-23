@@ -34,7 +34,6 @@ namespace ChatApp2Docs.Controllers
 
         [Route("PrivateChat/{name}")]
         [Authorize]
-        [ValidateAntiForgeryToken]
         public IActionResult PrivateChat(string name)
         {
             if(_chattingService.UserExists(name))
@@ -48,7 +47,6 @@ namespace ChatApp2Docs.Controllers
 
 
         [Authorize]
-        [ValidateAntiForgeryToken]
         public IActionResult GlobalChat()
         {
             return View();
